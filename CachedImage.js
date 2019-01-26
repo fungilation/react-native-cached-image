@@ -166,7 +166,7 @@ class CachedImage extends React.Component {
         const source = (this.state.isCacheable && this.state.cachedImagePath) ? {
             uri: 'file://' + this.state.cachedImagePath
         } : this.props.source;
-        if (this.props.fallbackSource && !this.state.cachedImagePath) {
+        if (this.props.fallbackSource && !this.state.isCacheable) {
             return this.props.renderImage({
                 ...props,
                 key: `${props.key || source.uri}error`,
