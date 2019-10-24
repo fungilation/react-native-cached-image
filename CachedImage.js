@@ -60,9 +60,7 @@ class CachedImage extends React.Component {
     this.state = {
       isCacheable: true,
       cachedImagePath: null,
-      networkAvailable: true,
-      imageSource: this.props.source,
-      imageShouldProcess: false,
+      networkAvailable: true
     };
 
     this.getImageCacheManagerOptions = this.getImageCacheManagerOptions.bind(this);
@@ -92,19 +90,8 @@ class CachedImage extends React.Component {
     NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
   }
 
-  static getDerivedStateFromProps(nextProps, nextState) {
-    if(!_.isElement(nextState.imageSource, nextProps.source)) {
-      return {
-        imageSource: nextProps.source,
-        imageShouldProcess: true,
-      };
-    }
-    return null;
-  }
-
-  componentDidUpdate() {
-    if(this.state.imageShouldProcess) {
-      this.setState({ imageShouldProcess: false });
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.source, prevProps.source)) {
       this.processSource(this.props.source);
     }
   }
