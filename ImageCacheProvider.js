@@ -42,7 +42,9 @@ class ImageCacheProvider extends React.Component {
         this.getImageCacheManagerOptions = this.getImageCacheManagerOptions.bind(this);
         this.getImageCacheManager = this.getImageCacheManager.bind(this);
         this.preloadImages = this.preloadImages.bind(this);
-
+        this.state = {
+            shouldPreloadImage: false,
+        }
     }
 
     getChildContext() {
@@ -58,12 +60,19 @@ class ImageCacheProvider extends React.Component {
         this.preloadImages(this.props.urlsToPreload);
     }
 
-    componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(nextProps) {
+        if(this.props.urlsToPreload !== nextProps.urlsToPreload){
+            return {
+                shouldPreloadImage: true,
+            };
+        }
+        return null;
+    }
+    componentDidUpdate() {
         // reset imageCacheManager in case any option changed
         this.imageCacheManager = null;
-        // preload new images if needed
-        if (this.props.urlsToPreload !== nextProps.urlsToPreload) {
-            this.preloadImages(nextProps.urlsToPreload);
+        if(this.state.shouldPreloadImage) {
+            this.preloadImages(this.props.urlsToPreload);
         }
     }
 
