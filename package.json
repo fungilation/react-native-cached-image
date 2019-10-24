@@ -56,14 +56,15 @@
     "url-parse": "^1.4.1"
   },
   "devDependencies": {
-    "babel-jest": "^21.0.2",
+    "@babel/core": "^7.6.4",
+    "babel-jest": "^24.9.0",
     "babel-preset-env": "*",
     "babel-preset-react-native": "^4.0.1",
     "jest": "^21.0.2",
     "jest-react-native": "^18.0.0",
-    "react": "16.4.1",
-    "react-native": "^0.48.3",
-    "react-test-renderer": "^15.6.1",
+    "react": "16.9.0",
+    "react-native": "^0.61",
+    "react-test-renderer": "^16.11.0",
     "regenerator-runtime": "^0.11.0"
   }
 }
